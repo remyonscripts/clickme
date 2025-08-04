@@ -49,6 +49,16 @@
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             line-height: 1.2;
+            transform: translateY(100px); 
+        }
+
+         .question2 {
+            font-size: 4em;
+            color: #e91e63;
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
         }
 
         @media (max-width: 768px) {
@@ -255,7 +265,7 @@
         </div>
 
         <div id="celebration" class="celebration">
-            <h1 class="question">YIEEE MISS MO TALAGA AKO AH</h1>
+            <h1 class="question2">YIEEE MISS MO TALAGA AKO AH</h1>
             
             <div class="video-container">
                 <video id="celebrationVideo" width="100%" controls loop>
@@ -294,30 +304,30 @@
         const celebration = document.getElementById('celebration');
         const floatingHearts = document.getElementById('floatingHearts');
 
-        // Function to get random position anywhere on screen for No button
+       
         function getRandomPosition() {
             const btnWidth = 150;
             const btnHeight = 70;
             
-            // Get full viewport dimensions
+            
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
             
-            // Calculate safe area (keeping button visible)
+            
             const minPadding = 20;
             const maxX = viewportWidth - btnWidth - minPadding;
             const maxY = viewportHeight - btnHeight - minPadding;
             
-            // Random position anywhere on screen
+            
             const x = Math.random() * (maxX - minPadding) + minPadding + btnWidth/2;
             const y = Math.random() * (maxY - minPadding) + minPadding + btnHeight/2;
             
             return { x: x, y: y };
         }
 
-        // Move the No button when clicked
+        
         function moveNoButton(button) {
-            // Add escaped class to make it fixed position
+            
             button.classList.add('escaped');
             
             const pos = getRandomPosition();
@@ -325,22 +335,22 @@
             button.style.top = pos.y + 'px';
         }
 
-        // Add event listeners for the No buttons
+        
         noBtn.addEventListener('click', () => moveNoButton(noBtn));
         noBtn2.addEventListener('click', () => moveNoButton(noBtn2));
 
-        // First Yes button click handler
+        
         yesBtn.addEventListener('click', function() {
             mainContent.style.display = 'none';
             confirmation.style.display = 'block';
         });
 
-        // Final Yes button click handler
+        
         yesGaniBtn.addEventListener('click', function() {
             confirmation.style.display = 'none';
             celebration.style.display = 'block';
             
-            // Try to play video with sound
+            
             const video = document.getElementById('celebrationVideo');
             video.muted = false; // Unmute first
             video.play().then(() => {
@@ -354,10 +364,10 @@
                 });
             });
             
-            // Create floating hearts effect
+            
             createFloatingHearts();
             
-            // Play confetti-like effect
+            
             setTimeout(() => {
                 for (let i = 0; i < 20; i++) {
                     setTimeout(() => createFloatingHeart(), i * 200);
@@ -373,7 +383,6 @@
             heart.style.animationDelay = Math.random() * 2 + 's';
             floatingHearts.appendChild(heart);
             
-            // Remove heart after animation
             setTimeout(() => {
                 if (heart.parentNode) {
                     heart.parentNode.removeChild(heart);
@@ -389,7 +398,7 @@
             }, 500);
         }
 
-        // Initialize with random position for No button
+       
         window.addEventListener('load', function() {
             setTimeout(moveNoButton, 1000);
         });
@@ -397,3 +406,4 @@
 </body>
 
 </html>
+
