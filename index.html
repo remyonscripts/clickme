@@ -352,12 +352,12 @@
             
             
             const video = document.getElementById('celebrationVideo');
-            video.muted = false; // Unmute first
+            video.muted = false; 
             video.play().then(() => {
                 console.log('Video playing with sound!');
             }).catch((error) => {
                 console.log('Autoplay with sound failed, trying muted:', error);
-                // If autoplay with sound fails, play muted
+                
                 video.muted = true;
                 video.play().catch((err) => {
                     console.log('Even muted autoplay failed:', err);
@@ -406,5 +406,6 @@
 </body>
 
 </html>
+
 
 
