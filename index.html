@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Me!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            width: calc(100vw - 200px);
+            min-height: 600px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-width: calc(100vw - 40px);
+                width: calc(100vw - 40px);
+                min-height: 500px;
+                padding: 30px 20px;
+            }
+        }
+
+        .question {
+            font-size: 4em;
+            color: #e91e63;
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
+        }
+
+        @media (max-width: 768px) {
+            .question {
+                font-size: 2.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question {
+                font-size: 2.2em;
+            }
+        }
+
+        .buttons-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .buttons-container {
+                height: 300px;
+            }
+        }
+
+        .btn {
+            padding: 25px 50px;
+            font-size: 1.8em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 900;
+            margin: 10px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            min-width: 150px;
+        }
+
+        @media (max-width: 768px) {
+            .btn {
+                padding: 20px 40px;
+                font-size: 1.5em;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                padding: 18px 35px;
+                font-size: 1.3em;
+                min-width: 100px;
+            }
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            left: 30%;
+            top: 50%;
+        }
+
+        .btn-yes:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-no {
+            background: linear-gradient(45deg, #f44336, #da190b);
+            color: white;
+            left: 70%;
+            top: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-no.escaped {
+            position: fixed !important;
+            z-index: 9999;
+        }
+
+        .btn-no:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .celebration {
+            display: none;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heart {
+            color: #e91e63;
+            font-size: 2em;
+            margin: 0 10px;
+            animation: heartBeat 1s infinite;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .message {
+            font-size: 1.5em;
+            color: #333;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .video-container {
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            min-height: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .video-container video {
+                min-height: 200px;
+            }
+        }
+
+        .meme-image {
+            max-width: 100%;
+            width: auto;
+            max-height: 400px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .meme-image {
+                max-height: 300px;
+            }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: #e91e63;
+            font-size: 2em;
+            animation: floatUp 3s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="main-content">
+            <h1 class="question">MISS MO NA AKO?</h1>
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="yesBtn">YES</button>
+                <button class="btn btn-no" id="noBtn">NO</button>
+            </div>
+        </div>
+
+        <div id="confirmation" class="celebration" style="display: none;">
+            <h1 class="question">WEH</h1>
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="yesGaniBtn">YES GANI</button>
+                <button class="btn btn-no" id="noBtn2">NO</button>
+            </div>
+        </div>
+
+        <div id="celebration" class="celebration">
+            <h1 class="question">YIEEE MISS MO TALAGA AKO AH</h1>
+            
+            <div class="video-container">
+                <video id="celebrationVideo" width="100%" controls loop>
+                    <source src="yieee.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="message">
+                MISS YOU DIN BRO!!
+                <br>
+                KELAN MAN TAYO MAG CARNIVAL? HEHE
+            </div>
+
+            <img src="hehe.jpg" alt="Your Meme" class="meme-image">
+            
+            <div class="message">
+                <span class="heart">💕</span>
+                <span class="heart">💖</span>
+                <span class="heart">💗</span>
+                <span class="heart">💓</span>
+                <span class="heart">💕</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const noBtn2 = document.getElementById('noBtn2');
+        const yesGaniBtn = document.getElementById('yesGaniBtn');
+        const mainContent = document.getElementById('main-content');
+        const confirmation = document.getElementById('confirmation');
+        const celebration = document.getElementById('celebration');
+        const floatingHearts = document.getElementById('floatingHearts');
+
+        // Function to get random position anywhere on screen for No button
+        function getRandomPosition() {
+            const btnWidth = 150;
+            const btnHeight = 70;
+            
+            // Get full viewport dimensions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            // Calculate safe area (keeping button visible)
+            const minPadding = 20;
+            const maxX = viewportWidth - btnWidth - minPadding;
+            const maxY = viewportHeight - btnHeight - minPadding;
+            
+            // Random position anywhere on screen
+            const x = Math.random() * (maxX - minPadding) + minPadding + btnWidth/2;
+            const y = Math.random() * (maxY - minPadding) + minPadding + btnHeight/2;
+            
+            return { x: x, y: y };
+        }
+
+        // Move the No button when clicked
+        function moveNoButton(button) {
+            // Add escaped class to make it fixed position
+            button.classList.add('escaped');
+            
+            const pos = getRandomPosition();
+            button.style.left = pos.x + 'px';
+            button.style.top = pos.y + 'px';
+        }
+
+        // Add event listeners for the No buttons
+        noBtn.addEventListener('click', () => moveNoButton(noBtn));
+        noBtn2.addEventListener('click', () => moveNoButton(noBtn2));
+
+        // First Yes button click handler
+        yesBtn.addEventListener('click', function() {
+            mainContent.style.display = 'none';
+            confirmation.style.display = 'block';
+        });
+
+        // Final Yes button click handler
+        yesGaniBtn.addEventListener('click', function() {
+            confirmation.style.display = 'none';
+            celebration.style.display = 'block';
+            
+            // Try to play video with sound
+            const video = document.getElementById('celebrationVideo');
+            video.muted = false; // Unmute first
+            video.play().then(() => {
+                console.log('Video playing with sound!');
+            }).catch((error) => {
+                console.log('Autoplay with sound failed, trying muted:', error);
+                // If autoplay with sound fails, play muted
+                video.muted = true;
+                video.play().catch((err) => {
+                    console.log('Even muted autoplay failed:', err);
+                });
+            });
+            
+            // Create floating hearts effect
+            createFloatingHearts();
+            
+            // Play confetti-like effect
+            setTimeout(() => {
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => createFloatingHeart(), i * 200);
+                }
+            }, 500);
+        });
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            floatingHearts.appendChild(heart);
+            
+            // Remove heart after animation
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, 3000);
+        }
+
+        function createFloatingHearts() {
+            setInterval(() => {
+                if (celebration.style.display === 'block') {
+                    createFloatingHeart();
+                }
+            }, 500);
+        }
+
+        // Initialize with random position for No button
+        window.addEventListener('load', function() {
+            setTimeout(moveNoButton, 1000);
+        });
+    </script>
+</body>
+</html>
