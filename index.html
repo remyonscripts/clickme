@@ -1,412 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click Me!</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click Me!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Comic Neue', cursive, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
 
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            max-width: 900px;
-            width: calc(100vw - 200px);
-            min-height: 600px;
-        }
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      max-width: 900px;
+      width: calc(100vw - 200px);
+      min-height: 600px;
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                max-width: calc(100vw - 40px);
-                width: calc(100vw - 40px);
-                min-height: 500px;
-                padding: 30px 20px;
-            }
-        }
+    @media (max-width: 768px) {
+      .container {
+        max-width: calc(100vw - 40px);
+        width: calc(100vw - 40px);
+        min-height: 500px;
+        padding: 30px 20px;
+      }
+    }
 
-        .question {
-            font-size: 4em;
-            color: #000000;
-            margin-bottom: 40px;
-            font-weight: bolder;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            line-height: 1.2;
-            transform: translateY(110px); 
-        }
+    .question, .question2 {
+      font-size: 4em;
+      color: #000000;
+      margin-bottom: 40px;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      line-height: 1.2;
+    }
 
-         .question2 {
-            font-size: 4em;
-            color: #000000;
-            margin-bottom: 40px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            line-height: 1.2;
-        }
+    @media (max-width: 768px) {
+      .question, .question2 {
+        font-size: 2.8em;
+      }
+    }
 
-        @media (max-width: 768px) {
-            .question {
-                font-size: 2.8em;
-            }
-        }
+    @media (max-width: 480px) {
+      .question, .question2 {
+        font-size: 2.2em;
+      }
+    }
 
-        @media (max-width: 480px) {
-            .question {
-                font-size: 2.2em;
-            }
-        }
+    .buttons-container {
+      position: relative;
+      height: 400px;
+      width: 100%;
+      margin: 40px 0;
+    }
 
-        .buttons-container {
-            position: relative;
-            height: 400px;
-            width: 100%;
-            margin: 40px 0;
-        }
+    .btn {
+      padding: 25px 50px;
+      font-size: 1.8em;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 900;
+      margin: 10px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      min-width: 150px;
+    }
 
-        @media (max-width: 768px) {
-            .buttons-container {
-                height: 300px;
-            }
-        }
+    .btn-yes {
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      left: 30%;
+      top: 50%;
+    }
 
-        .btn {
-            padding: 25px 50px;
-            font-size: 1.8em;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 900;
-            margin: 10px;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            min-width: 150px;
-        }
+    .btn-yes:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
+    }
 
-        @media (max-width: 768px) {
-            .btn {
-                padding: 20px 40px;
-                font-size: 1.5em;
-                min-width: 120px;
-            }
-        }
+    .btn-no {
+      background: linear-gradient(45deg, #f44336, #da190b);
+      color: white;
+      left: 70%;
+      top: 50%;
+      transition: all 0.3s ease;
+    }
 
-        @media (max-width: 480px) {
-            .btn {
-                padding: 18px 35px;
-                font-size: 1.3em;
-                min-width: 100px;
-            }
-        }
+    .btn-no.escaped {
+      position: fixed !important;
+      z-index: 9999;
+    }
 
-        .btn-yes {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-            left: 30%;
-            top: 50%;
-        }
+    .celebration {
+      display: none;
+      animation: fadeInUp 0.8s ease;
+    }
 
-        .btn-yes:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
-        }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .btn-no {
-            background: linear-gradient(45deg, #f44336, #da190b);
-            color: white;
-            left: 70%;
-            top: 50%;
-            transition: all 0.3s ease;
-        }
+    .heart {
+      color: #e91e63;
+      font-size: 2em;
+      margin: 0 10px;
+      animation: heartBeat 1s infinite;
+    }
 
-        .btn-no.escaped {
-            position: fixed !important;
-            z-index: 9999;
-        }
+    @keyframes heartBeat {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
 
-        .btn-no:hover {
-            transform: translate(-50%, -50%) scale(1.05);
-        }
+    .message {
+      font-size: 1.5em;
+      color: #333;
+      margin: 20px 0;
+      font-weight: bold;
+    }
 
-        .celebration {
-            display: none;
-            animation: fadeInUp 0.8s ease;
-        }
+    .video-container {
+      margin: 20px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 800px;
+    }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .video-container video {
+      width: 100%;
+      height: auto;
+      min-height: 300px;
+    }
 
-        .heart {
-            color: #e91e63;
-            font-size: 2em;
-            margin: 0 10px;
-            animation: heartBeat 1s infinite;
-        }
+    @media (max-width: 768px) {
+      .video-container video {
+        min-height: 200px;
+      }
+    }
 
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
 
-        .message {
-            font-size: 1.5em;
-            color: #333;
-            margin: 20px 0;
-            font-weight: bold;
-        }
+    .floating-heart {
+      position: absolute;
+      color: #e91e63;
+      font-size: 2em;
+      animation: floatUp 3s linear infinite;
+    }
 
-        .video-container {
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .video-container video {
-            width: 100%;
-            height: auto;
-            min-height: 300px;
-        }
-
-        @media (max-width: 768px) {
-            .video-container video {
-                min-height: 200px;
-            }
-        }
-
-        .meme-image {
-            max-width: 100%;
-            width: auto;
-            max-height: 400px;
-            border-radius: 15px;
-            margin: 20px 0;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .meme-image {
-                max-height: 300px;
-            }
-        }
-
-        .floating-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .floating-heart {
-            position: absolute;
-            color: #e91e63;
-            font-size: 2em;
-            animation: floatUp 3s linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% {
-                opacity: 1;
-                transform: translateY(100vh) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) rotate(360deg);
-            }
-        }
-    </style>
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(100vh) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(-100px) rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div id="main-content">
-            <h1 class="question">MISS MO NA AKO?</h1>
-            <div class="buttons-container">
-                <button class="btn btn-yes" id="yesBtn">YES</button>
-                <button class="btn btn-no" id="noBtn">NO</button>
-            </div>
-        </div>
-
-        <div id="confirmation" class="celebration" style="display: none;">
-            <h1 class="question">WEH</h1>
-            <div class="buttons-container">
-                <button class="btn btn-yes" id="yesGaniBtn">YES GANI</button>
-                <button class="btn btn-no" id="noBtn2">NO</button>
-            </div>
-        </div>
-
-        <div id="celebration" class="celebration">
-            <h1 class="question2">YIEEE MISS MO TALAGA AKO AH</h1>
-            
-            <div class="video-container">
-                <video id="celebrationVideo" width="100%" controls loop>
-                    <source src="yieee.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="message">
-                MISS YOU DIN PRE!!
-                <br>
-                pre can we gala every week? (if di ka busy)
-            </div>
-
-            <img src="hehe.jpg" alt="Your Meme" class="meme-image">
-            
-            <div class="message">
-                <span class="heart">💕</span>
-                <span class="heart">💖</span>
-                <span class="heart">💗</span>
-                <span class="heart">💓</span>
-                <span class="heart">💕</span>
-            </div>
-        </div>
+  <div class="container">
+    <div id="main-content">
+      <h1 class="question">HI, MISS MO NA BA AKO?</h1>
+      <div class="buttons-container">
+        <button class="btn btn-yes" id="yesBtn">YES</button>
+        <button class="btn btn-no" id="noBtn">NO</button>
+      </div>
     </div>
 
-    <div class="floating-hearts" id="floatingHearts"></div>
+    <div id="confirmation" class="celebration" style="display: none;">
+      <h1 class="question">SURE BA?</h1>
+      <div class="buttons-container">
+        <button class="btn btn-yes" id="yesGaniBtn">YES</button>
+        <button class="btn btn-no" id="noBtn2">NO</button>
+      </div>
+    </div>
 
-    <script>
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const noBtn2 = document.getElementById('noBtn2');
-        const yesGaniBtn = document.getElementById('yesGaniBtn');
-        const mainContent = document.getElementById('main-content');
-        const confirmation = document.getElementById('confirmation');
-        const celebration = document.getElementById('celebration');
-        const floatingHearts = document.getElementById('floatingHearts');
+    <div id="celebration" class="celebration">
+      <h1 class="question2">I miss you :(( can we make gala every week? (if ur not busy)</h1>
+      <div class="video-container">
+        <video id="celebrationVideo" width="100%" controls loop>
+          <source src="yieee.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="message">
+        MISS YOU DIN PRE!!
+      </div>
+      <div class="message">
+        <span class="heart">💕</span>
+        <span class="heart">💖</span>
+        <span class="heart">💗</span>
+        <span class="heart">💓</span>
+        <span class="heart">💕</span>
+      </div>
+    </div>
+  </div>
 
-       
-        function getRandomPosition() {
-            const btnWidth = 150;
-            const btnHeight = 70;
-            
-            
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            
-            
-            const minPadding = 20;
-            const maxX = viewportWidth - btnWidth - minPadding;
-            const maxY = viewportHeight - btnHeight - minPadding;
-            
-            
-            const x = Math.random() * (maxX - minPadding) + minPadding + btnWidth/2;
-            const y = Math.random() * (maxY - minPadding) + minPadding + btnHeight/2;
-            
-            return { x: x, y: y };
-        }
+  <div class="floating-hearts" id="floatingHearts"></div>
 
-        
-        function moveNoButton(button) {
-            
-            button.classList.add('escaped');
-            
-            const pos = getRandomPosition();
-            button.style.left = pos.x + 'px';
-            button.style.top = pos.y + 'px';
-        }
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const noBtn2 = document.getElementById('noBtn2');
+    const yesGaniBtn = document.getElementById('yesGaniBtn');
+    const mainContent = document.getElementById('main-content');
+    const confirmation = document.getElementById('confirmation');
+    const celebration = document.getElementById('celebration');
+    const floatingHearts = document.getElementById('floatingHearts');
 
-        
-        noBtn.addEventListener('click', () => moveNoButton(noBtn));
-        noBtn2.addEventListener('click', () => moveNoButton(noBtn2));
+    function getRandomPosition() {
+      const btnWidth = 150;
+      const btnHeight = 70;
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const minPadding = 20;
+      const maxX = viewportWidth - btnWidth - minPadding;
+      const maxY = viewportHeight - btnHeight - minPadding;
+      const x = Math.random() * (maxX - minPadding) + minPadding + btnWidth/2;
+      const y = Math.random() * (maxY - minPadding) + minPadding + btnHeight/2;
+      return { x: x, y: y };
+    }
 
-        
-        yesBtn.addEventListener('click', function() {
-            mainContent.style.display = 'none';
-            confirmation.style.display = 'block';
-        });
+    function moveNoButton(button) {
+      button.classList.add('escaped');
+      const pos = getRandomPosition();
+      button.style.left = pos.x + 'px';
+      button.style.top = pos.y + 'px';
+    }
 
-        
-        yesGaniBtn.addEventListener('click', function() {
-            confirmation.style.display = 'none';
-            celebration.style.display = 'block';
-            
-            
-            const video = document.getElementById('celebrationVideo');
-            video.muted = false; 
-            video.play().then(() => {
-                console.log('Video playing with sound!');
-            }).catch((error) => {
-                console.log('Autoplay with sound failed, trying muted:', error);
-                
-                video.muted = true;
-                video.play().catch((err) => {
-                    console.log('Even muted autoplay failed:', err);
-                });
-            });
-            
-            
-            createFloatingHearts();
-            
-            
-            setTimeout(() => {
-                for (let i = 0; i < 20; i++) {
-                    setTimeout(() => createFloatingHeart(), i * 200);
-                }
-            }, 500);
-        });
+    noBtn.addEventListener('click', () => moveNoButton(noBtn));
+    noBtn2.addEventListener('click', () => moveNoButton(noBtn2));
 
-        function createFloatingHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'floating-heart';
-            heart.innerHTML = '💖';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDelay = Math.random() * 2 + 's';
-            floatingHearts.appendChild(heart);
-            
-            setTimeout(() => {
-                if (heart.parentNode) {
-                    heart.parentNode.removeChild(heart);
-                }
-            }, 3000);
-        }
+    yesBtn.addEventListener('click', function() {
+      mainContent.style.display = 'none';
+      confirmation.style.display = 'block';
+    });
 
-        function createFloatingHearts() {
-            setInterval(() => {
-                if (celebration.style.display === 'block') {
-                    createFloatingHeart();
-                }
-            }, 500);
-        }
+    yesGaniBtn.addEventListener('click', function() {
+      confirmation.style.display = 'none';
+      celebration.style.display = 'block';
+      const video = document.getElementById('celebrationVideo');
+      video.muted = false;
+      video.play().catch(() => { video.muted = true; video.play(); });
+      createFloatingHearts();
+      setTimeout(() => { for (let i = 0; i < 20; i++) { setTimeout(() => createFloatingHeart(), i * 200); } }, 500);
+    });
 
-       
-        window.addEventListener('load', function() {
-            setTimeout(moveNoButton, 1000);
-        });
-    </script>
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      floatingHearts.appendChild(heart);
+      setTimeout(() => { if (heart.parentNode) { heart.parentNode.removeChild(heart); } }, 3000);
+    }
+
+    function createFloatingHearts() {
+      setInterval(() => { if (celebration.style.display === 'block') { createFloatingHeart(); } }, 500);
+    }
+
+    window.addEventListener('load', function() { setTimeout(moveNoButton, 1000); });
+  </script>
 </body>
-
 </html>
-
-
-
-
